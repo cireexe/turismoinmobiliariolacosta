@@ -9,7 +9,7 @@ if(isset($_GET['id_categoria'])) {
       $titulo = $value['nombre'];
     }
   }
-  $sql = "SELECT * FROM comercios where id_categoria = " . $_GET['id_categoria'];
+  $sql = "SELECT comercios.id, comercios.nombre, comercios.direccion, comercios.id_localidad, comercios.mail, comercios.telefono, comercios.descripcion, comercios.id_categoria, comercios.imagen, localidades.localidad FROM comercios INNER JOIN localidades on localidades.id = comercios.id_localidad where id_categoria = " . $_GET['id_categoria'];
 } else {
   $sql = "SELECT * FROM comercios";
 }
@@ -57,7 +57,7 @@ $comercios = mysqli_query($conexion, $sql);
         <p class="card__description">
                                     Nombre: <?php echo $row['nombre'] ?> <br>
                                     Ubicacion: <?php echo $row['direccion'] ?> <br>
-                                    Localidad: <?php echo $row['id_localidad'] ?> <br>
+                                    Localidad: <?php echo $row['localidad'] ?> <br>
                                     telefono: <?php echo $row['telefono'] ?> <br>
                                     Descripcion: <?php echo $row['descripcion'] ?> <br>
         </p>

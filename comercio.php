@@ -1,12 +1,12 @@
 <?php
 include_once("conexion.php");
 if(isset($_GET['id'])) {
-    $sql = "SELECT * FROM comercios where id = " . $_GET['id'];
+    $sql = "SELECT * FROM comercios inner join localidades on localidades.id = comercios.id_localidad where comercios.id = " . $_GET['id'];
     $comercio = mysqli_query($conexion, $sql);
     $titulo = 'Comercios';
     $comercio = $comercio->fetch_assoc();
     // En la variable $comercio estan todos los datos por ejemplo nombre sería: $comercio['nombre']
-    // print_r($comercio);
+    // print_r($comercio);die;
 } 
 ?>
 <!DOCTYPE html>
@@ -17,12 +17,22 @@ if(isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $titulo ?></title>
     <link rel="stylesheet" href="carousel/vistas.css">
+    <style>
+        .container-fluid {
+            padding: 0 50px;
+        }
+        .carousel__thumbnails {
+            margin: 20px 0 !important;
+            display: flex;
+            flex-flow: row wrap;
+        }
+    </style>
 </head>
 <body>
     
     
     <div class="parallax-content baner-content" id="home">
-        <div class="container">
+        <div class="container-fluid">
             <div class="first-content">
                 <h3> <?php echo $comercio['nombre'] ?> <br></h3>
             </div>
@@ -30,7 +40,7 @@ if(isset($_GET['id'])) {
     </div>
 
  
-        <div class="container">
+        <div class="container-fluid">
             <div class="carousel">
                 <input type="radio" name="slides" id="slide-1">
      
@@ -43,7 +53,7 @@ if(isset($_GET['id'])) {
                             <figcaption>
                             
                                     Ubicacion: <?php echo $comercio['direccion'] ?> <br>
-                                    Localidad: <?php echo $comercio['id_localidad'] ?> <br>
+                                    Localidad: <?php echo $comercio['localidad'] ?> <br>
                                     telefono: <?php echo $comercio['telefono'] ?> <br>
                                     Descripcion: <?php echo $comercio['descripcion'] ?> <br>
         

@@ -1,6 +1,6 @@
 <?php
 include_once("validar.php");
-$sql = "SELECT * FROM comercios where id_categoria = " . $_GET['id_categoria'];
+$sql = "SELECT * FROM comercios INNER JOIN localidades on localidades.id = comercios.id_localidad where id_categoria = " . $_GET['id_categoria'];
 $respuesta = mysqli_query($conexion, $sql);
 // print_r($respuesta);
 ?>
@@ -16,6 +16,7 @@ $respuesta = mysqli_query($conexion, $sql);
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php while($row = mysqli_fetch_assoc($respuesta)): ?>
+                <?php //print_r($row) ?>
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
@@ -28,7 +29,7 @@ $respuesta = mysqli_query($conexion, $sql);
                                     <!-- Product price-->
                                     Nombre: <?php echo $row['nombre'] ?> <br>
                                     Ubicacion: <?php echo $row['direccion'] ?> <br>
-                                    Localidad: <?php echo $row['id_localidad'] ?> <br>
+                                    Localidad: <?php echo $row['localidad'] ?> <br>
                                     telefono: <?php echo $row['telefono'] ?> <br>
                                     Descripcion: <?php echo $row['descripcion'] ?> <br>
                                 </div>
